@@ -6,11 +6,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { IWorkspace } from 'src/interfaces/workspace.interface';
+import WorkspaceParams from './params/workspace.params';
 import { WorkspaceService } from './workspace.service';
-
-interface WorkspaceParams {
-  userId: string;
-}
 
 @Controller()
 export class WorkspaceController {

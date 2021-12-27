@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { IWorkspace } from 'src/interfaces/workspace.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Workspace } from './workspace.entity';
 
 @Injectable()
 export class WorkspaceService {
-  getWorkspace(userId: string): IWorkspace {
-    console.log(`User ID is ${userId}`);
+  constructor(
+    @InjectRepository(Workspace)
+    private workspaceRepository: Repository<Workspace>,
+  ) {}
 
-    return {
-      nodes: {},
-      edges: {},
-      focus: null,
-    };
+  getWorkspace(userId: string): Promise<Workspace> {
+    return this.workspaceRepository.findOne(userId);
   }
 }
