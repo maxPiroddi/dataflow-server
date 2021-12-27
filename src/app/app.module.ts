@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
-import { DbModule } from 'src/db/db.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 import { WorkspaceModule } from './workspace/workspace.module';
 
 @Module({
-  imports: [DbModule, WorkspaceModule],
+  imports: [TypeOrmModule.forRoot(), WorkspaceModule],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+}

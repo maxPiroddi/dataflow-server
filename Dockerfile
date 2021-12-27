@@ -1,10 +1,10 @@
 FROM node:16.13.1 as build-env
 
-RUN mkdir -p /app
+RUN mkdir /app
 WORKDIR /app
 
 COPY . .
-RUN npm run install && npm run build
+RUN npm install && npm run build
 
 WORKDIR /app
 

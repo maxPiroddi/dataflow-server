@@ -1,14 +1,25 @@
 version: '3.7'
 services:
-  mongodb_container:
-    image: mongo:latest
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpassword
-    ports:
-      - 27017:27017
+  server:
+    build: .
     volumes:
-      - mongodb_data_container:/data/db
+      - ./:/app
+    ports:
+      - 8080:8080
+    links:
+      - db
+    command: ['npm', 'start']
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: dataflow
+    ports:
+      - 5432:5432
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./tmp/db:/var/lib/postgresql/data
 
 volumes:
-  mongodb_data_container:
+  db-data: {}

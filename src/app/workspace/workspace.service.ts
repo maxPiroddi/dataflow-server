@@ -10,7 +10,7 @@ export class WorkspaceService {
     private workspaceRepository: Repository<Workspace>,
   ) {}
 
-  getWorkspace(userId: string): Promise<Workspace> {
-    return this.workspaceRepository.findOne(userId);
+  async getWorkspace(userId: string): Promise<Workspace> {
+    return await this.workspaceRepository.findOne(userId);
   }
 }
