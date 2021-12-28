@@ -1,25 +1,11 @@
-version: '3.7'
+version: '3.8'
 services:
-  server:
-    build: .
-    volumes:
-      - ./:/app
+  postgres:
+    image: postgres:10.4
+    restart: always
     ports:
-      - 8080:8080
-    links:
-      - db
-    command: ['npm', 'start']
-  db:
-    image: postgres:latest
+      - '5432:5432'
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: dataflow
-    ports:
-      - 5432:5432
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./tmp/db:/var/lib/postgresql/data
-
-volumes:
-  db-data: {}
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db

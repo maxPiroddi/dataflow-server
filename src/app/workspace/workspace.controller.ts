@@ -5,7 +5,8 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { IWorkspace } from 'src/interfaces/workspace.interface';
+import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
+import { IWorkspace, Workspace } from 'src/interfaces/workspace.interface';
 import WorkspaceParams from './params/workspace.params';
 import { WorkspaceService } from './workspace.service';
 
@@ -13,13 +14,17 @@ import { WorkspaceService } from './workspace.service';
 export class WorkspaceController {
   constructor(private readonly workspacesService: WorkspaceService) {}
 
+  @Get('workspace-health')
+  getWorkspaceHealth(): string {
+    return 'Hello world!';
+  }
+
   @Get('workspace')
-  // Implement swagger:
-  // @ApiOkResponse({
-  //     type: Workspace
-  //     description: 'Workspace retrieved'
-  // })
-  // @ApiBadRequestResponse({ description: 'Failed to retrieve workspace'})
+  @ApiOkResponse({
+    type: [Workspace],
+    description: 'Workspace retrieved',
+  })
+  @ApiBadRequestResponse({ description: 'Failed to retrieve workspace' })
   async getWorkspace(
     @Query() queryParams: WorkspaceParams,
   ): Promise<IWorkspace> {

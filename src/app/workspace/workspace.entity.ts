@@ -1,5 +1,12 @@
 import { IWorkspace } from 'src/interfaces/workspace.interface';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { assign, pick } from 'lodash';
 
 @Entity()
 export class Workspace implements IWorkspace {
@@ -7,11 +14,21 @@ export class Workspace implements IWorkspace {
   id: string;
 
   @Column()
-  nodes: Record<string, unknown>;
+  nodes: string;
 
   @Column()
-  edges: Record<string, unknown>;
+  edges: string;
 
   @Column()
-  focus: Record<string, unknown>;
+  focus: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt?: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt?: Date;
+
+  constructor(workspace?: IWorkspace) {
+    assign(this, pick(workspace, ['id', 'nodes', 'edges', 'focus']));
+  }
 }

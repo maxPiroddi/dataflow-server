@@ -2,6 +2,7 @@
 /dist
 /node_modules
 /tmp
+/pgdata
 
 # Logs
 logs
