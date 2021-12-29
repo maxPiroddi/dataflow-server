@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-
+import { Node } from 'src/interfaces/node.interface';
 import { assign, pick } from 'lodash';
 
 export interface IWorkspace {
-  nodes: string;
+  nodes: Node[];
   edges: string;
-  focus: string;
 }
 
 export class Workspace implements IWorkspace {
@@ -13,15 +12,12 @@ export class Workspace implements IWorkspace {
   id?: string;
 
   @ApiProperty()
-  nodes: string;
+  nodes: Node[];
 
   @ApiProperty()
   edges: string;
 
-  @ApiProperty()
-  focus: string;
-
   constructor(workspace?: IWorkspace) {
-    assign(this, pick(workspace, ['id', 'nodes', 'edges', 'focus']));
+    assign(this, pick(workspace, ['id', 'nodes', 'edges']));
   }
 }

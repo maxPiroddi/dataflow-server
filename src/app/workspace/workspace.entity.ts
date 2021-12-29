@@ -3,24 +3,23 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { assign, pick } from 'lodash';
+import { Node } from 'src/interfaces/node.interface';
 
 @Entity()
 export class Workspace implements IWorkspace {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
-  nodes: string;
+  @OneToMany(() => Node, (node) => node.workspace)
+  nodes: Node[];
 
   @Column()
   edges: string;
-
-  @Column()
-  focus: string;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt?: Date;
@@ -29,6 +28,6 @@ export class Workspace implements IWorkspace {
   updatedAt?: Date;
 
   constructor(workspace?: IWorkspace) {
-    assign(this, pick(workspace, ['id', 'nodes', 'edges', 'focus']));
+    assign(this, pick(workspace, ['id', 'nodes', 'edges']));
   }
 }
