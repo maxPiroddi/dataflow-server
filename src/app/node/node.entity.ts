@@ -34,10 +34,10 @@ export class Node implements INode {
   @Column()
   outputs: string[][];
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt?: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt?: Date;
 
   constructor(node?: INode) {

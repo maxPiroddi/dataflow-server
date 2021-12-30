@@ -14,11 +14,6 @@ import { WorkspaceService } from './workspace.service';
 export class WorkspaceController {
   constructor(private readonly workspacesService: WorkspaceService) {}
 
-  @Get('workspace-health')
-  getWorkspaceHealth(): string {
-    return 'Hello world!';
-  }
-
   @Get('workspace')
   @ApiOkResponse({
     type: [Workspace],
